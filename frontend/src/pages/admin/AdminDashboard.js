@@ -40,9 +40,16 @@ import TeacherDetails from './teacherRelated/TeacherDetails';
 import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
+import CreateMaterial from "./materialRelated/CreateMaterial";
+import ShowMaterials from "./materialRelated/ShowMaterials";
 import AccountMenu from '../../components/AccountMenu';
+import ShowEnrollments from './enrollmentRelated/ShowEnrollments';
+import ShowAssignments from "./assignmentRelated/ShowAssignments";
+import CreateAssignment from "./assignmentRelated/CreateAssignment";
+import AdminEnrollments from "./enrollmentRelated/AdminEnrollments";
+import ShowNotifications from "./notificationRelated/ShowNotifications";
 
-const AdminDashboard = () => {
+    const AdminDashboard = ({ mode, setMode }) => {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -134,6 +141,24 @@ const AdminDashboard = () => {
                         <Route path="/Admin/teachers/choosesubject/:classID/:teacherID" element={<ChooseSubject situation="Teacher" />} />
                         <Route path="/Admin/teachers/addteacher/:id" element={<AddTeacher />} />
 
+                        {/* LMS Management */}
+
+<Route path="/Admin/assignments" element={<ShowAssignments />} />
+
+<Route path="/Admin/materials" element={<ShowMaterials />} />
+
+<Route path="/Admin/materials/create" element={<CreateMaterial />} />
+
+<Route
+ path="/Admin/enrollments"
+ element={<AdminEnrollments />}
+/>
+
+<Route
+ path="/Admin/notifications"
+ element={<ShowNotifications />}
+/>
+<Route path="/Admin/assignments/create" element={<CreateAssignment />} />
                         <Route path="/logout" element={<Logout />} />
                     </Routes>
                 </Box>

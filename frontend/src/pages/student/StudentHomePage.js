@@ -1,136 +1,240 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Grid, Paper, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux';
-import { calculateOverallAttendancePercentage } from '../../components/attendanceCalculator';
-import CustomPieChart from '../../components/CustomPieChart';
-import { getUserDetails } from '../../redux/userRelated/userHandle';
-import styled from 'styled-components';
-import SeeNotice from '../../components/SeeNotice';
-import CountUp from 'react-countup';
-import Subject from "../../assets/subjects.svg";
-import Assignment from "../../assets/assignment.svg";
-import { getSubjectList } from '../../redux/sclassRelated/sclassHandle';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+import {
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  Avatar
+} from "@mui/material";
+
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import SchoolIcon from "@mui/icons-material/School";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+
+import { useSelector } from "react-redux";
+
+
 
 const StudentHomePage = () => {
-    const dispatch = useDispatch();
 
-    const { userDetails, currentUser, loading, response } = useSelector((state) => state.user);
-    const { subjectsList } = useSelector((state) => state.sclass);
+  const { currentUser } = useSelector(state => state.user);
 
-    const [subjectAttendance, setSubjectAttendance] = useState([]);
+  const studentId = currentUser?._id;
+  const classId = currentUser?.sclassName?._id;
 
-    const classID = currentUser.sclassName._id
+  const [stats, setStats] = useState({
+    subjects: 0,
+    assignments: 0,
+    materials: 0,
+    notifications: 0
+  });
 
-    useEffect(() => {
-        dispatch(getUserDetails(currentUser._id, "Student"));
-        dispatch(getSubjectList(classID, "ClassSubjects"));
-    }, [dispatch, currentUser._id, classID]);
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
-    const numberOfSubjects = subjectsList && subjectsList.length;
+  const fetchStats = async () => {
 
-    useEffect(() => {
-        if (userDetails) {
-            setSubjectAttendance(userDetails.attendance || []);
+    try {
+
+      const subjects = await axios.get(
+        `http://localhost:5000/ClassSubjects/${classId}`
+      );
+
+      const assignments = await axios.get(
+        `http://localhost:5000/AssignmentsClass/${classId}`
+      );
+
+      const materials = await axios.get(
+        `http://localhost:5000/MaterialList/${classId}`
+      );
+
+      const notifications = await axios.get(
+        `http://localhost:5000/Notifications/${studentId}`
+      );
+
+      setStats({
+        subjects: subjects.data.length,
+        assignments: assignments.data.length,
+        materials: materials.data.length,
+        notifications: notifications.data.length
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
+
+
+  // NEW MODERN CARD COMPONENT (UI ONLY)
+  const StatCard = ({ title, value, icon, color }) => (
+
+    <Paper
+      elevation={4}
+      sx={{
+        p: 3,
+        borderRadius: 3,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        transition: "0.3s",
+        borderLeft: `6px solid ${color}`,
+        "&:hover": {
+          transform: "translateY(-6px)",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.15)"
         }
-    }, [userDetails])
+      }}
+    >
 
-    const overallAttendancePercentage = calculateOverallAttendancePercentage(subjectAttendance);
-    const overallAbsentPercentage = 100 - overallAttendancePercentage;
+      <Box>
 
-    const chartData = [
-        { name: 'Present', value: overallAttendancePercentage },
-        { name: 'Absent', value: overallAbsentPercentage }
-    ];
-    return (
-        <>
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
-                            <img src={Subject} alt="Subjects" />
-                            <Title>
-                                Total Subjects
-                            </Title>
-                            <Data start={0} end={numberOfSubjects} duration={2.5} />
-                        </StyledPaper>
-                    </Grid>
-                    <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
-                            <img src={Assignment} alt="Assignments" />
-                            <Title>
-                                Total Assignments
-                            </Title>
-                            <Data start={0} end={15} duration={4} />
-                        </StyledPaper>
-                    </Grid>
-                    <Grid item xs={12} md={4} lg={3}>
-                        <ChartContainer>
-                            {
-                                response ?
-                                    <Typography variant="h6">No Attendance Found</Typography>
-                                    :
-                                    <>
-                                        {loading
-                                            ? (
-                                                <Typography variant="h6">Loading...</Typography>
-                                            )
-                                            :
-                                            <>
-                                                {
-                                                    subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 ? (
-                                                        <>
-                                                            <CustomPieChart data={chartData} />
-                                                        </>
-                                                    )
-                                                        :
-                                                        <Typography variant="h6">No Attendance Found</Typography>
-                                                }
-                                            </>
-                                        }
-                                    </>
-                            }
-                        </ChartContainer>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <SeeNotice />
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
-        </>
-    )
-}
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            fontWeight: 500
+          }}
+        >
+          {title}
+        </Typography>
 
-const ChartContainer = styled.div`
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  height: 240px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            mt: 1
+          }}
+        >
+          {value}
+        </Typography>
 
-const StyledPaper = styled(Paper)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-`;
+      </Box>
 
-const Title = styled.p`
-  font-size: 1.25rem;
-`;
 
-const Data = styled(CountUp)`
-  font-size: calc(1.3rem + .6vw);
-  color: green;
-`;
+      <Avatar
+        sx={{
+          bgcolor: color,
+          width: 56,
+          height: 56
+        }}
+      >
+        {icon}
+      </Avatar>
+
+    </Paper>
+
+  );
+
+
+  return (
+
+    <Box sx={{ p: 1 }}>
+
+      {/* Welcome Header */}
+
+      <Box mb={4}>
+
+        <Typography variant="h4" fontWeight="bold">
+          Welcome, {currentUser?.name}
+        </Typography>
+
+        <Typography color="text.secondary">
+          Here's your academic overview
+        </Typography>
+
+      </Box>
 
 
 
-export default StudentHomePage
+      {/* Stats Grid */}
+
+      <Grid container spacing={3}>
+
+        <Grid item xs={12} sm={6} md={3}>
+
+          <StatCard
+            title="Subjects"
+            value={stats.subjects}
+            icon={<MenuBookIcon />}
+            color="#2563eb"
+          />
+
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+
+          <StatCard
+            title="Assignments"
+            value={stats.assignments}
+            icon={<AssignmentIcon />}
+            color="#7c3aed"
+          />
+
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+
+          <StatCard
+            title="Materials"
+            value={stats.materials}
+            icon={<SchoolIcon />}
+            color="#059669"
+          />
+
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+
+          <StatCard
+            title="Notifications"
+            value={stats.notifications}
+            icon={<NotificationsIcon />}
+            color="#ea580c"
+          />
+
+        </Grid>
+
+      </Grid>
+
+
+
+      {/* Bottom Info Section */}
+
+      <Box mt={5}>
+
+        <Paper
+          elevation={3}
+          sx={{
+            p: 3,
+            borderRadius: 3
+          }}
+        >
+
+          <Typography variant="h6" fontWeight="bold" mb={1}>
+            Student Overview
+          </Typography>
+
+          <Typography color="text.secondary">
+
+            Access your subjects, complete assignments,
+            download study materials, and stay updated
+            with notifications — all in one place.
+
+          </Typography>
+
+        </Paper>
+
+      </Box>
+
+    </Box>
+
+  );
+
+};
+
+
+export default StudentHomePage;

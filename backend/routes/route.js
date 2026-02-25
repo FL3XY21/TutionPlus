@@ -24,7 +24,62 @@ const {
     removeStudentAttendance } = require('../controllers/student_controller.js');
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const {
+    createMaterial,
+    getAllMaterials,
+    getMaterialsByClass,
+    deleteMaterial
+} = require("../controllers/material-controller");
 
+const {
+ enrollStudent,
+ getStudentEnrollments,
+ getAllEnrollments
+} =
+require("../controllers/enrollment-controller");
+
+const {
+ createNotification,
+ getNotifications,
+ getAllNotifications
+} =
+require("../controllers/notification-controller");
+
+const {
+    createAssignment,
+    getAllAssignments,
+    getAssignmentsByClass,
+    getAssignmentsByTeacher,
+    deleteAssignment
+} = require("../controllers/assignment-controller");
+
+const {
+    submitAssignment,
+    getSubmissionsByAssignment,
+    getSubmissionsByStudent,
+    gradeSubmission
+} = require("../controllers/submission-controller");
+const { getAdminDashboard } = require("../controllers/dashboard-controller");
+const upload = require("../middleware/cloudinaryUpload");
+router.post(
+    "/MaterialCreate",
+    upload.single("file"),
+    createMaterial
+);
+router.get("/AdminDashboard", getAdminDashboard);
+router.post(
+ "/NotificationCreate",
+ createNotification
+);
+
+router.get(
+ "/Notifications/:userId",
+ getNotifications
+);
+router.get(
+ "/Notifications",
+ getAllNotifications
+);
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
@@ -116,4 +171,44 @@ router.delete("/Subject/:id", deleteSubject)
 router.delete("/Subjects/:id", deleteSubjects)
 router.delete("/SubjectsClass/:id", deleteSubjectsByClass)
 
+
+router.post("/MaterialCreate", createMaterial);
+
+router.get("/Materials", getAllMaterials);
+router.get("/MaterialList/:classId", getAllMaterials);
+
+router.delete("/Material/:id", deleteMaterial);
+
+
+
+router.post("/Enroll", enrollStudent);
+
+router.get("/Enrollments", getAllEnrollments);
+
+router.get(
+ "/EnrollmentsStudent/:studentId",
+ getStudentEnrollments
+);
+
+// Assignment routes
+router.post("/AssignmentCreate", createAssignment);
+
+router.get("/Assignments", getAllAssignments);
+
+router.get("/AssignmentsClass/:classId", getAssignmentsByClass);
+
+router.get("/AssignmentsTeacher/:teacherId", getAssignmentsByTeacher);
+
+router.delete("/Assignment/:id", deleteAssignment);
+
+
+// Submission routes
+
+router.post("/SubmissionCreate", submitAssignment);
+
+router.get("/SubmissionsAssignment/:assignmentId", getSubmissionsByAssignment);
+
+router.get("/SubmissionsStudent/:studentId", getSubmissionsByStudent);
+
+router.put("/SubmissionGrade/:id", gradeSubmission);
 module.exports = router;
