@@ -40,7 +40,7 @@ const EnrollStudent = () => {
 
   const res =
   await axios.get(
-   "http://localhost:5000/Students"
+   "https://tutionplus.onrender.com/Students"
   );
 
   setStudents(res.data);
@@ -52,7 +52,7 @@ const EnrollStudent = () => {
 
   const res =
   await axios.get(
-   "http://localhost:5000/SclassList"
+   "https://tutionplus.onrender.com/SclassList"
   );
 
   setClasses(res.data);
@@ -63,7 +63,7 @@ const EnrollStudent = () => {
  const enroll = async () => {
 
   await axios.post(
-   "http://localhost:5000/Enroll",
+   "https://tutionplus.onrender.com/Enroll",
    {
     studentId,
     classId,

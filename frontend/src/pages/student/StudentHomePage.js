@@ -41,19 +41,19 @@ const StudentHomePage = () => {
     try {
 
       const subjects = await axios.get(
-        `http://localhost:5000/ClassSubjects/${classId}`
+        `https://tutionplus.onrender.com/ClassSubjects/${classId}`
       );
 
       const assignments = await axios.get(
-        `http://localhost:5000/AssignmentsClass/${classId}`
+        `https://tutionplus.onrender.com/AssignmentsClass/${classId}`
       );
 
       const materials = await axios.get(
-        `http://localhost:5000/MaterialList/${classId}`
+        `https://tutionplus.onrender.com/MaterialList/${classId}`
       );
 
       const notifications = await axios.get(
-        `http://localhost:5000/Notifications/${studentId}`
+        `https://tutionplus.onrender.com/Notifications/${studentId}`
       );
 
       setStats({

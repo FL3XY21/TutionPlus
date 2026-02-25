@@ -47,7 +47,7 @@ const CreateMaterial = () => {
         try {
 
             const res = await axios.get(
-                `http://localhost:5000/SclassList/${user._id}`
+                `https://tutionplus.onrender.com/SclassList/${user._id}`
             );
 
             setClasses(res.data);
@@ -66,7 +66,7 @@ const CreateMaterial = () => {
         try {
 
             const res = await axios.get(
-                `http://localhost:5000/AllSubjects/${user._id}`
+                `https://tutionplus.onrender.com/AllSubjects/${user._id}`
             );
 
             setSubjects(res.data);
@@ -121,7 +121,7 @@ const CreateMaterial = () => {
 
             await axios.post(
 
-                "http://localhost:5000/MaterialCreate",
+                "https://tutionplus.onrender.com//MaterialCreate",
 
                 formData,
 

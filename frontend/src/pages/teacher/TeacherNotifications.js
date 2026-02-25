@@ -43,7 +43,7 @@ const TeacherNotifications = () => {
         try {
 
             const res = await axios.get(
-                "http://localhost:5000/Notifications"
+                "https://tutionplus.onrender.com/Notifications"
             );
 
             setNotifications(res.data);
@@ -59,7 +59,7 @@ const TeacherNotifications = () => {
         if (!title || !message) return;
 
         await axios.post(
-            "http://localhost:5000/NotificationCreate",
+            "https://tutionplus.onrender.com/NotificationCreate",
             {
                 title,
                 message,
@@ -79,7 +79,7 @@ const TeacherNotifications = () => {
         try {
 
             await axios.delete(
-                `http://localhost:5000/Notification/${id}`
+                `https://tutionplus.onrender.com/Notification/${id}`
             );
 
             fetchNotifications();

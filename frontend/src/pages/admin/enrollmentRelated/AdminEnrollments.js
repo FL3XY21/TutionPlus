@@ -37,7 +37,7 @@ const AdminEnrollments = () => {
 
   const res =
   await axios.get(
-   `http://localhost:5000/Students/${admin._id}`
+   `https://tutionplus.onrender.com/Students/${admin._id}`
   );
 
   setStudents(res.data);
@@ -61,7 +61,7 @@ const AdminEnrollments = () => {
 
   const res =
   await axios.get(
-   "http://localhost:5000/Enrollments"
+   "https://tutionplus.onrender.com/Enrollments"
   );
 
   setEnrollments(res.data);
@@ -72,7 +72,7 @@ const AdminEnrollments = () => {
  const enroll = async () => {
 
   await axios.post(
-   "http://localhost:5000/Enroll",
+   "https://tutionplus.onrender.com/Enroll",
    {
     studentId,
     classId,

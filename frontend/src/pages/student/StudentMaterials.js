@@ -52,7 +52,7 @@ const StudentMaterials = () => {
 
         const res =
           await axios.get(
-            `http://localhost:5000/MaterialList/${classId}`
+            `https://tutionplus.onrender.com/MaterialList/${classId}`
           );
 
         setMaterials(res.data);

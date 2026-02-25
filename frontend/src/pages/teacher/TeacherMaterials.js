@@ -42,7 +42,7 @@ const TeacherMaterials = () => {
     const fetchMaterials = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/Materials"
+                "https://tutionplus.onrender.com/Materials"
             );
 
             // Filter only teacher materials
@@ -72,7 +72,7 @@ const TeacherMaterials = () => {
         formData.append("file", file);
 
         await axios.post(
-            "http://localhost:5000/MaterialCreate",
+            "https://tutionplus.onrender.com/MaterialCreate",
             formData
         );
 
@@ -86,7 +86,7 @@ const TeacherMaterials = () => {
     const deleteMaterial = async (id) => {
 
         await axios.delete(
-            `http://localhost:5000/Material/${id}`
+            `https://tutionplus.onrender.com/Material/${id}`
         );
 
         fetchMaterials();

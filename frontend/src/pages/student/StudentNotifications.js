@@ -52,7 +52,7 @@ const StudentNotifications = () => {
 
         const res =
           await axios.get(
-            `http://localhost:5000/Notifications/${studentId}`
+            `https://tutionplus.onrender.com/Notifications/${studentId}`
           );
 
         setNotifications(res.data);

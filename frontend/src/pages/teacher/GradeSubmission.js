@@ -9,7 +9,7 @@ const gradeSubmission = async (submissionId) => {
 
     await axios.put(
 
-        `http://localhost:5000/SubmissionGrade/${submissionId}`,
+        `https://tutionplus.onrender.com/SubmissionGrade/${submissionId}`,
 
         {
 

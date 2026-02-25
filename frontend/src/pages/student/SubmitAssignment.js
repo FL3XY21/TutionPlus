@@ -19,7 +19,7 @@ const StudentAssignments = () => {
   useEffect(() => {
 
     axios.get(
-      `http://localhost:5000/AssignmentsClass/${classId}`
+      `https://tutionplus.onrender.com/AssignmentsClass/${classId}`
     )
     .then(res => setAssignments(res.data));
 

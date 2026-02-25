@@ -27,7 +27,7 @@ const ShowMaterials = () => {
     const fetchMaterials = async () => {
 
         const res = await axios.get(
-            "http://localhost:5000/Materials"
+            "https://tutionplus.onrender.com/Materials"
         );
 
         setMaterials(res.data);

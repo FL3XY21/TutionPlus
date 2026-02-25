@@ -16,7 +16,7 @@ const AssignmentCard = ({ assignment, refresh }) => {
         if (!window.confirm("Delete assignment?")) return;
 
         await axios.delete(
-            `http://localhost:5000/Assignment/${assignment._id}`
+            `https://tutionplus.onrender.com/${assignment._id}`
         );
 
         refresh();

@@ -99,7 +99,7 @@ const CreateAssignment = () => {
 
         await axios.post(
 
-            "http://localhost:5000/AssignmentCreate",
+            "https://tutionplus.onrender.com/AssignmentCreate",
 
             {
 

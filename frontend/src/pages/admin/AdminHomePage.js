@@ -124,7 +124,7 @@ const AdminHomePage = () => {
 
    const res =
    await axios.get(
-    "http://localhost:5000/AdminDashboard"
+    "https://tutionplus.onrender.com/AdminDashboard"
    );
 
    const data = res.data;

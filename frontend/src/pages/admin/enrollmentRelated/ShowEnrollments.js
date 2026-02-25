@@ -26,7 +26,7 @@ const ShowEnrollments = () => {
         try {
 
             const res = await axios.get(
-                "http://localhost:5000/Enrollments"
+                "https://tutionplus.onrender.com/Enrollments"
             );
 
             setEnrollments(res.data);

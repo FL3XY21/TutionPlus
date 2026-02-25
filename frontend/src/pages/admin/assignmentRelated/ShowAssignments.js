@@ -38,7 +38,7 @@ const ShowAssignments = () => {
             setLoading(true);
 
             const res = await axios.get(
-                "http://localhost:5000/Assignments"
+                "https://tutionplus.onrender.com/Assignments"
             );
 
             setAssignments(res.data);

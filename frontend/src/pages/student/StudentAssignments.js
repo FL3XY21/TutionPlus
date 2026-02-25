@@ -55,7 +55,7 @@ const StudentAssignments = () => {
 
         const res =
           await axios.get(
-            `http://localhost:5000/AssignmentsClass/${classId}`
+            `https://tutionplus.onrender.com/AssignmentsClass/${classId}`
           );
 
         setAssignments(res.data);
