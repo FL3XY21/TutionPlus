@@ -19,7 +19,7 @@ dotenv.config();
 // app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
 app.use(express.json({ limit: '10mb' }))
-aapp.use(cors({
+app.use(cors({
  origin: "https://tuitionplus-frontend.onrender.com",
  credentials: true
 }));
