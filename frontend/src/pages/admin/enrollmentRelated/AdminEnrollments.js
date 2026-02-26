@@ -49,7 +49,7 @@ const AdminEnrollments = () => {
 
   const res =
   await axios.get(
-   `http://localhost:5000/SclassList/${admin._id}`
+   `https://tutionplus.onrender.com/SclassList/${admin._id}`
   );
 
   setClasses(res.data);
