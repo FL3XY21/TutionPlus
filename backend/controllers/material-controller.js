@@ -22,6 +22,7 @@ exports.createMaterial = async (req, res) => {
    title: req.body.title,
    description: req.body.description,
    fileUrl: req.file.path,
+public_id: req.file.filename,
    classId: req.body.classId,
    subjectId: req.body.subjectId,
    uploadedBy: req.body.uploadedBy,

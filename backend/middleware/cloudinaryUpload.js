@@ -1,29 +1,36 @@
 const multer = require("multer");
-const cloudinary = require("../config/cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
 const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
 
-    cloudinary: cloudinary,
+  params: {
+    folder: "tuitionplus_materials",
 
-    params: async (req, file) => ({
+    resource_type: "raw", // IMPORTANT: allows PDF, DOCX, etc
 
-        folder: "tuitionplus_materials",
+    allowed_formats: [
+      "pdf",
+      "doc",
+      "docx",
+      "ppt",
+      "pptx",
+      "xls",
+      "xlsx",
+      "txt",
+      "jpg",
+      "png"
+    ],
 
-        resource_type: "auto",
-
-        type: "upload",           // IMPORTANT → makes file public
-
-        access_mode: "public"     // IMPORTANT → allows public access
-
-    })
-
+    public_id: (req, file) => {
+      return Date.now() + "-" + file.originalname;
+    }
+  }
 });
 
 const upload = multer({
-
-    storage: storage
-
+  storage: storage
 });
 
 module.exports = upload;
