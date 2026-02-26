@@ -121,7 +121,7 @@ const CreateMaterial = () => {
 
             await axios.post(
 
-                "https://tutionplus.onrender.com//MaterialCreate",
+                "https://tutionplus.onrender.com/MaterialCreate",
 
                 formData,
 

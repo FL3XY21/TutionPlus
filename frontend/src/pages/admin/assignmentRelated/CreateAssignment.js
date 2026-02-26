@@ -56,7 +56,7 @@ const CreateAssignment = () => {
     const fetchClasses = async () => {
 
         const res = await axios.get(
-            `http://localhost:5000/SclassList/${adminId}`
+            `https://tutionplus.onrender.com/SclassList/${adminId}`
         );
 
         setClasses(res.data);
@@ -66,7 +66,7 @@ const CreateAssignment = () => {
     const fetchSubjects = async () => {
 
         const res = await axios.get(
-            `http://localhost:5000/AllSubjects/${adminId}`
+            `https://tutionplus.onrender.com/AllSubjects/${adminId}`
         );
 
         setSubjects(res.data);
@@ -76,7 +76,7 @@ const CreateAssignment = () => {
     const fetchTeachers = async () => {
 
         const res = await axios.get(
-            `http://localhost:5000/Teachers/${adminId}`
+            `https://tutionplus.onrender.com/Teachers/${adminId}`
         );
 
         setTeachers(res.data);
