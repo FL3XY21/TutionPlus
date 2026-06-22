@@ -1,5 +1,5 @@
 <h1 align="center">
-    SCHOOL MANAGEMENT SYSTEM
+    TutionPlus
 </h1>
 
 <h3 align="center">
@@ -8,13 +8,7 @@ Seamlessly track attendance, assess performance, and provide feedback. <br>
 Access records, view marks, and communicate effortlessly.
 </h3>
 
-<p>
-  <a href="https://youtu.be/ol650KwQkgY?si=rKcboqSv3n-e4UbC">Youtube Video</a>
-</p>
 
-<p>
-  <a href="https://www.linkedin.com/in/yogndrr/">LinkedIn</a>
-</p>
 
 
 # About
@@ -48,7 +42,7 @@ The School Management System is a web-based application built using the MERN (Mo
 Clone the project:
 
 ```
-git clone https://github.com/Yogndrr/MERN-School-Management-System.git
+git clone https://github.com/xxx/xxxx.git
 ```
 
 There are three branches in this repository. Each serves a different purpose.
@@ -76,7 +70,7 @@ npm install
 Create a .env file in the backend folder. Add the following:
 
 ```
-MONGO_URL = mongodb://127.0.0.1/smsproject
+MONGO_URL = mongodb://127.0.0.1/xxx
 
 SECRET_KEY = 'secret123key'
 ```
